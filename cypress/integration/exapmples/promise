@@ -1,0 +1,54 @@
+it('waits for promises to resolve', () => {
+  let waited = false
+
+  function waitOneSecond() {
+    // return a promise that resolves after 1 second
+    return new Cypress.Promise((resolve, reject) => {
+      setTimeout(() => {
+        // set waited to true
+        waited = true
+
+        // resolve with 'foo' string
+        resolve('foo')
+      }, 1000)
+    })
+  }
+
+  cy.wrap(null).then(() => {
+    // return a promise to cy.then() that
+    // is awaited until it resolves
+    return waitOneSecond().then((str) => {
+      expect(str).to.eq('foo')
+      expect(waited).to.be.true
+    })
+  })
+})
+
+
+Cypress.Promise.onPossiblyUnhandledRejection((error, promise) => {
+    throw error
+  })
+
+
+
+  cy.get('button')
+  .then(($btn) => {
+    const cls = $btn.attr('class')
+
+    cy.wrap($btn).click().should('not.have.class', cls).find('i')
+    // since there is no explicit return
+    // the last Cypress command's yield is yielded
+  })
+  .should('have.class', 'spin') // assert on i element
+
+
+
+
+  before(async () => {
+    await user.createOnServer()
+    offer = await user.createOffer()
+    await offer.publish()
+    user.login()
+    cy.visit(`/offers/${offer.details.id}`)
+    cy.get('.offer-description__content button').as('showMoreButton')
+  })

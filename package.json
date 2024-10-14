@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "init": "^0.1.2",
+    "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.3",
+    "cypress-iframe": "^1.0.1",
+    "neat-csv": "5.1.0"
+  },
+  "scripts": {
+    "test": "node_modules\\.bin\\cypress run",
+    "headedTest": "npm run test -- --headed",
+    "chromeTest": "npm run test -- --browser chrome",
+    "recordDashboardTest": "npm run test -- --record --key 2056ce22-6642-4267-9d3a-e59cf3d9d25a",
+    "iframeTest": "npx cypress run --record --key 2056ce22-6642-4267-9d3a-e59cf3d9d25a --spec cypress/integration/exapmples/iframe.js --headed --browser chrome"
+  }
+}
